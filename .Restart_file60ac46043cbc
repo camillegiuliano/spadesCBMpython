@@ -1,0 +1,18 @@
+setHook('rstudio.sessionInit', function(newSession) {
+if (newSession) {
+# message('Welcome to RStudio ', rstudioapi::getVersion())
+}
+ap <- rstudioapi::getActiveProject()
+if (is.null(ap)) ap <- 'No active project'
+message('This is now an RStudio project and SpaDES.project projectPath: ', ap)
+message('attempting to re-open last active file (named global6.R) ')
+try(file.edit('C:/Celine/github/spadesCBMpython/global6.R'), silent = TRUE)
+rstudioapi::navigateToFile('C:/Celine/github/spadesCBMpython/global6.R')
+readLns <- readLines('C:/Celine/github/spadesCBMpython/.Rprofile')
+lineToDel <- grep('^.Restart_', readLns)
+readLns <- readLns[-lineToDel]
+cat(readLns, file = 'C:/Celine/github/spadesCBMpython/.Rprofile', sep = '
+')
+unlink('C:/Celine/github/spadesCBMpython/.Restart_file60ac46043cbc') # delete this file
+}, action = 'append'
+)
