@@ -1,6 +1,6 @@
 ######## Trials at setting up the Python environment in reticulate without
 ######## confusing where it looks for libcbm package
-projectPath <- "C:/Celine/github/spadesCBMpython"
+projectPath <- "~/spadesCBMpython"
 dir.create(projectPath, recursive = TRUE, showWarnings = FALSE)
 setwd(projectPath)
 
