@@ -5,7 +5,9 @@ dir.create(projectPath, recursive = TRUE, showWarnings = FALSE)
 setwd(projectPath)
 
 repos <- unique(c("predictiveecology.r-universe.dev", getOption("repos")))
-if (!require("SpaDES.project")) install.packages("SpaDES.project", repos = repos)
+#if (!require("SpaDES.project")) install.packages("SpaDES.project", repos = repos)
+install.packages("SpaDES.project",
+                 repos = c("https://predictiveecology.r-universe.dev", getOption("repos")))
 
 # start in 1998 because there are known disturbances in the study area
 times <- list(start = 1998, end = 2000)
