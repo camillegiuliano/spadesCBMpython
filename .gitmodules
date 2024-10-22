@@ -1,6 +1,3 @@
-[submodule "cboisvenue/spadesCBM"]
-	path = cboisvenue/spadesCBM
-	url = https://github.com/cboisvenue/spadesCBM
 [submodule "modules/spadesCBM"]
 	path = modules/spadesCBM
 	url = https://github.com/cboisvenue/spadesCBM
