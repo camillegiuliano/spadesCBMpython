@@ -34,10 +34,10 @@ out <- SpaDES.project::setupProject(
     spades.moduleCodeChecks = FALSE
   ),
   modules =  c("cboisvenue/spadesCBM@libCBMtransition",
-               "PredictiveEcology/CBM_defaults@python",
-               "PredictiveEcology/CBM_dataPrep_SK@python",
-               "PredictiveEcology/CBM_vol2biomass@libcbm",
-               "PredictiveEcology/CBM_core@python"),##TODO not linked yet!
+               "PredictiveEcology/CBM_defaults@training",
+               "PredictiveEcology/CBM_dataPrep_SK@training",
+               "PredictiveEcology/CBM_vol2biomass@training",
+               "PredictiveEcology/CBM_core@training"),##TODO not linked yet!
   times = times,
   require = c("SpaDES.core", "reticulate",
               "PredictiveEcology/libcbmr", "data.table"),
@@ -51,18 +51,6 @@ out <- SpaDES.project::setupProject(
   },
 
   #### begin manually passed inputs ##########################################
-
-  spatialDT = {
-    dt <- readRDS(file.path(inputScott, "spatialDT.rds"))
-    ##Transition: getting rid of the double gcids columns and naming one column
-    ##gcids
-    data.table::setnames(dt,"growth_curve_component_id", "gcids")
-    dt[, growth_curve_id := NULL]
-    dt
-  },
-
-
-  delays = rep(0, length(unique(spatialDT$pixelGroup))),
 
   userDist = data.table(distName = c("wildfire", "clearcut", "deforestation", "20% mortality", "20% mortality"),
                         rasterID = c(1L, 2L, 4L, 3L, 5L),
