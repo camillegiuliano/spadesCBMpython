@@ -52,10 +52,6 @@ out <- SpaDES.project::setupProject(
 
   #### begin manually passed inputs ##########################################
 
-  userDist = data.table(distName = c("wildfire", "clearcut", "deforestation", "20% mortality", "20% mortality"),
-                        rasterID = c(1L, 2L, 4L, 3L, 5L),
-                        wholeStand = c(1L, 1L, 1L, 0L, 0L)),
-
   ##Need to keep this master raster here. It defines the smaller study area. We
   ##will not need it when we run all of the managed forests of SK as the study
   ##area will be defined by a masterRaster that we get via a URL.
