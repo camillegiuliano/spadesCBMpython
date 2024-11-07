@@ -17,6 +17,7 @@ out <- SpaDES.project::setupProject(
   useGit = TRUE, # a developer sets and keeps this = TRUE
   overwrite = TRUE, # a user who wants to get latest modules sets this to TRUE
   inputScott = "modules/spadesCBM/inputsForScott",
+  paths = list(projectPath = projectPath),
 
   options = options(
     repos = c(repos = repos),
