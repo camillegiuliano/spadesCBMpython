@@ -1,6 +1,6 @@
 ######## Trials at setting up the Python environment in reticulate without
 ######## confusing where it looks for libcbm package
-projectPath <- "C:/Celine/github/spadesCBMpython"
+projectPath <- "~/spadesCBMpython"
 dir.create(projectPath, recursive = TRUE, showWarnings = FALSE)
 setwd(projectPath)
 
@@ -14,7 +14,7 @@ times <- list(start = 1998, end = 2000)
 
 out <- SpaDES.project::setupProject(
   Restart = TRUE,
-  useGit = TRUE, # a developer sets and keeps this = TRUE
+  useGit = "PredictiveEcology", # a developer sets and keeps this = TRUE
   overwrite = TRUE, # a user who wants to get latest modules sets this to TRUE
   inputScott = "modules/spadesCBM/inputsForScott",
   paths = list(projectPath = projectPath),
