@@ -1,6 +1,6 @@
 ######## Trials at setting up the Python environment in reticulate without
 ######## confusing where it looks for libcbm package
-projectPath <- "~/spadesCBMpython"
+projectPath <- "C:/Celine/github/spadesCBMpython"
 dir.create(projectPath, recursive = TRUE, showWarnings = FALSE)
 setwd(projectPath)
 
@@ -36,10 +36,19 @@ out <- SpaDES.project::setupProject(
   times = times,
   require = c("SpaDES.core", "reticulate",
               "PredictiveEcology/libcbmr", "data.table"),
-  # params = list(
-  #   CBM_core = list(
-  #     .useCache = c(".inputObjects", "init")
-  #     )),
+
+  parameters = list(
+    CBM_defaults = list(
+      .useCache = TRUE
+    ),
+    CBM_dataPrep_SK = list(
+      .useCache = TRUE
+    ),
+    CBM_vol2biomass = list(
+      .useCache = TRUE
+    )
+  ),
+
   ret = {
     reticulate::use_virtualenv(virtualenv = "r-reticulate")
     reticulate::py_install("libcbm", envname = "r-reticulate")
