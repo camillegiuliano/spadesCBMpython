@@ -1,4 +1,4 @@
-######## Trials at setting up the Python environment in reticulate without
+projectPath <- "~/spadesCBMpython"
 dir.create(projectPath, recursive = TRUE, showWarnings = FALSE)
 setwd(projectPath)
 
