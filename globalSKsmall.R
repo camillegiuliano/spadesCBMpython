@@ -45,8 +45,28 @@ out <- SpaDES.project::setupProject(
   ),
 
   ret = {
-    reticulate::use_virtualenv(virtualenv = "r-reticulate")
-    reticulate::py_install("libcbm", envname = "r-reticulate")
+    reticulate::virtualenv_create(
+      "r-spadesCBM",
+      python = if (!reticulate::virtualenv_exists("r-spadesCBM")){
+        ReticulateFindPython(
+          version        = ">=3.9,<=3.12.7",
+          versionInstall = "3.10:latest",
+          pyenvRoot      = tools::R_user_dir("r-spadesCBM")
+        )
+      },
+      packages = c(
+        "numpy<2",
+        "pandas>=1.1.5",
+        "scipy",
+        "numexpr>=2.8.7",
+        "numba",
+        "pyyaml",
+        "mock",
+        "openpyxl",
+        "libcbm"
+      )
+    )
+    reticulate::use_virtualenv("r-spadesCBM")
   },
 
   #### begin manually passed inputs #########################################
