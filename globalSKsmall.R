@@ -1,15 +1,12 @@
 ######## Trials at setting up the Python environment in reticulate without
-######## confusing where it looks for libcbm package
-projectPath <- "~/spadesCBMpython"
 dir.create(projectPath, recursive = TRUE, showWarnings = FALSE)
 setwd(projectPath)
 
 repos <- unique(c("predictiveecology.r-universe.dev", getOption("repos")))
-#if (!require("SpaDES.project")) install.packages("SpaDES.project", repos = repos)
 install.packages("SpaDES.project",
-                 repos = c("https://predictiveecology.r-universe.dev", getOption("repos")))
+                 repos = repos)
 
-# start in 1998 because there are known disturbances in the study area
+# start in 1998, and end in 2000
 times <- list(start = 1998, end = 2000)
 
 out <- SpaDES.project::setupProject(
@@ -21,7 +18,7 @@ out <- SpaDES.project::setupProject(
   options = options(
     repos = c(repos = repos),
     Require.cloneFrom = Sys.getenv("R_LIBS_USER"),
-    reproducible.destinationPath = "inputs", ## TODO: SpaDES.project#24
+    reproducible.destinationPath = "inputs",
     ## These are for speed
     reproducible.useMemoise = TRUE,
     # Require.offlineMode = TRUE,
@@ -30,7 +27,7 @@ out <- SpaDES.project::setupProject(
   modules =  c("PredictiveEcology/CBM_defaults@training",
                "PredictiveEcology/CBM_dataPrep_SK@training",
                "PredictiveEcology/CBM_vol2biomass@training",
-               "PredictiveEcology/CBM_core@training"),##TODO not linked yet!
+               "PredictiveEcology/CBM_core@training"),
   times = times,
   require = c("SpaDES.core", "reticulate",
               "PredictiveEcology/libcbmr", "data.table"),
@@ -53,9 +50,7 @@ out <- SpaDES.project::setupProject(
   },
 
   #### begin manually passed inputs #########################################
-  ##Need to keep this master raster here. It defines the smaller study area. We
-  ##will not need it when we run all of the managed forests of SK as the study
-  ##area will be defined by a masterRaster that we get via a URL.
+  ## define the  study area.
   masterRaster = {
     extent = terra::ext(c(xmin = -687696, xmax = -681036, ymin = 711955, ymax = 716183))
     masterRaster <- terra::rast(extent, res = 30)
@@ -68,9 +63,7 @@ out <- SpaDES.project::setupProject(
     mr[mr[] == 0] <- NA
     mr
   },
-  ##Need to keep the disturbance rasters here. We will not need it when we run all
-  ##of the managed forests of SK as the disturbance rasters will be defined by
-  ##rasters that we get via a URL.
+  ## Give the location of the disturbance rasters.
   disturbanceRasters = "https://drive.google.com/file/d/12YnuQYytjcBej0_kdodLchPg7z9LygCt/view?usp=drive_link",
 
   # Restart = getOption("SpaDES.project.Restart", FALSE),
@@ -82,6 +75,7 @@ out <- SpaDES.project::setupProject(
                                       )))),
 
 )
+
 out$loadOrder <- unlist(out$modules)
 
 # Run
