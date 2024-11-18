@@ -43,7 +43,7 @@ out <- SpaDES.project::setupProject(
       .useCache = TRUE
     )
   ),
-  functions = file.path(paths$modulePath, "CBM_core", "R", "ReticulateFindPython.R"),
+  functions = "PredictiveEcology/CBM_core@training/R/ReticulateFindPython.R",
 
   ret = {
     reticulate::virtualenv_create(
